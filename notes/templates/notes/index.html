@@ -1,3 +1,12 @@
+{% if notes %}
 <div>
-  Hello Notes
+  {% for note in notes %}
+  <h3>
+    {{ note.title }}
+  </h3>
+  <div>
+    {{ note.content }}
+  </div>
+  {% endfor %}
 </div>
+{% else %} We have no notes :( {% endif %}
