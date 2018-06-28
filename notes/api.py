@@ -13,7 +13,14 @@ class PersonalNoteSerializer(serializers.HyperlinkedModelSerializer):
         model = PersonalNote
         fields = ['title', 'content']
 
+    def create(self, validated_data):
+        # import pdb; pdb.set_trace() # for debugging
+        user = self.context['request'].user
+        personal_note = PersonalNote.objects.create(
+            user=user, **validated_data)
+        return personal_note
 
+#TODO modify this to only work for admin atleast
 class NoteViewset(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
@@ -21,4 +28,12 @@ class NoteViewset(viewsets.ModelViewSet):
 
 class PersonalNoteViewset(viewsets.ModelViewSet):
     serializer_class = PersonalNoteSerializer
-    queryset = PersonalNote.objects.all()
+    queryset = PersonalNote.objects.none()
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.is_anonymous:
+            return PersonalNote.objects.none()
+        else:
+            return PersonalNote.objects.filter(user=user)
