@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-#ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [
                        s.strip() for s in v.split(',')])
 
@@ -89,12 +89,13 @@ DATABASES = {
     }
 }
 '''
-#DATABASES['default'] = dj_database_url.config(default='postgres://...')
+# DATABASES['default'] = dj_database_url.config(default='postgres://...')
 DATABASES = {
     'default': config(
         'DATABASE_URL',
-        default='sqlite:///' + BASE_DIR.child('db.sqlite3'),
-        cast=db_url
+        # default='sqlite:///' + BASE_DIR.child('db.sqlite3'),
+        default='sqlite:///db.sqlite3'),
+        cast = db_url
     )
 }
 
@@ -120,24 +121,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE= 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE= 'UTC'
 
-USE_I18N = True
+USE_I18N= True
 
-USE_L10N = True
+USE_L10N= True
 
-USE_TZ = True
+USE_TZ= True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL= '/static/'
 
 # http://www.django-rest-framework.org/
-REST_FRAMEWORK = {
+REST_FRAMEWORK= {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
