@@ -13,6 +13,7 @@ gunicorn = "*"
 "psycopg2-binary" = "*"
 whitenoise = "*"
 dj-database-url = "*"
+dj-static = "*"
 
 [dev-packages]
 
